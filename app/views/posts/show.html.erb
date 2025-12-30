@@ -1,8 +1,4 @@
-<h1><%= @post.title %></h1>
-
-<p>
-  <%= simple_format(@post.body) %>
-</p>
+<%= render "post", post: @post,truncate_body: false %>
 
 <hr>
 

@@ -7,20 +7,16 @@
 <hr>
 
 <% @posts.each do |post| %>
-  <div>
-    <h2>
-      <%= link_to post.title, post %>
-    </h2>
 
-    <p>
-      <%= truncate(post.body, length: 100) %>
-    </p>
+  <%= render "post", post: post, truncate_body: true %>
 
-    <p>
-      <%= link_to "Edit", edit_post_path(post) %> |
-      <%= link_to "Delete", post, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-    </p>
+  <p>
+    <%= link_to "Show", post %> |
+    <%= link_to "Edit", edit_post_path(post) %> |
+    <%= link_to "Delete", post,
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+  </p>
 
-    <hr>
-  </div>
+  <hr>
+
 <% end %>

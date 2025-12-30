@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  #show,edit,update,destroyが呼ばれる前にset_postメソッドを実行する
+  # show, edit, update, destroyが呼ばれる前にset_postメソッドを実行する
   before_action :set_post, only: %i[ show edit update destroy ]
 
   # GET /posts or /posts.json
@@ -64,13 +64,12 @@ class PostsController < ApplicationController
 
   private
 
-def set_post
-  Rails.logger.debug "SET_POST CALLED with id=#{params[:id]}"
-  @post = Post.find(params[:id])
-end
+  def set_post
+    Rails.logger.debug "SET_POST CALLED with id=#{params[:id]}"
+    @post = Post.find(params[:id])
+  end
 
-def post_params
-  params.require(:post).permit(:title, :body)
-end
-
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
 end

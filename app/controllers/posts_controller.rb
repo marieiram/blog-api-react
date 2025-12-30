@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  # show, edit, update, destroyが呼ばれる前にset_postメソッドを実行する
   before_action :set_post, only: %i[ show edit update destroy ]
 
   # GET /posts or /posts.json
@@ -21,6 +22,7 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
+    Rails.logger.debug "PARAMS: #{params.inspect}"
     @post = Post.new(post_params)
 
     respond_to do |format|
@@ -36,6 +38,9 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
+    Rails.logger.debug "================ UPDATE START ================"
+    Rails.logger.debug "PARAMS: #{params.inspect}"
+
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: "Post was successfully updated.", status: :see_other }
@@ -58,13 +63,13 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.expect(post: [ :title, :body ])
-    end
+  def set_post
+    Rails.logger.debug "SET_POST CALLED with id=#{params[:id]}"
+    @post = Post.find(params[:id])
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
 end

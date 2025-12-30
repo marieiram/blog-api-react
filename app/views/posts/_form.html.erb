@@ -11,6 +11,15 @@
     </div>
   <% end %>
 
+   <p>
+    persisted? = <%= post.persisted? %><br>
+    id = <%= post.id.inspect %>
+  </p>
+
+  # <pre>
+  #   <%= form.object.inspect %>
+  # </pre>
+
   <div>
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>

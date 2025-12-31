@@ -2,13 +2,13 @@ class PostsController < ApplicationController
   # show, edit, update, destroyが呼ばれる前にset_postメソッドを実行する
   before_action :set_post, only: %i[ show edit update destroy ]
   # 新規作成、編集、削除はログイン必須にする　ログインしてなくても一覧詳細は見れる
-  before_action :authenticate_user!, except: [ :index, :show ]
-  # 自分の投稿だけ編集・更新・削除できるようにする
-  before_action :authorize_post!, only: %i[edit update destroy]
+  before_action :authenticate_user!
+  # 投稿の所有者かどうか確認する
+  before_action :authorize_owner!, only: %i[edit update destroy]
 
   def authorize_user!
   redirect_to posts_path, alert: "権限がありません" unless @post.user == current_user
-end
+  end
 
   # GET /posts or /posts.json
   def index
@@ -76,10 +76,12 @@ end
     @post = Post.find(params[:id])
   end
 
-   def authorize_post!
-    return if @post.user == current_user
-    head :forbidden
+def authorize_owner!
+    unless @post.user == current_user
+      redirect_to posts_path, alert: "権限がありません"
+    end
   end
+
 
   def post_params
     params.require(:post).permit(:title, :body)

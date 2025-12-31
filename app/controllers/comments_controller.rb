@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
  before_action :authenticate_user!
  before_action :set_comment, only: [ :destroy ]
- before_action :authorize_comment!, only: [ :destroy ]
+ before_action :authorize_owner!, only: :destroy
 
     def create
     @post = Post.find(params[:post_id])
@@ -34,10 +34,10 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
    end
 
-   def authorize_comment!
-    return if @comment.user == current_user
-
-    head :forbidden
+   def authorize_owner!
+    unless @comment.user == current_user
+      redirect_to @comment.post, alert: "権限がありません"
+    end
   end
 
   def comment_params

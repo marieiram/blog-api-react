@@ -7,3 +7,7 @@
     <%= simple_format(post.body) %>
   <% end %>
 </p>
+
+<p>
+  投稿者：<%= post.user.email %>
+</p>

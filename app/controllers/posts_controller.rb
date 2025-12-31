@@ -1,6 +1,12 @@
 class PostsController < ApplicationController
   # show, edit, update, destroyが呼ばれる前にset_postメソッドを実行する
   before_action :set_post, only: %i[ show edit update destroy ]
+  #新規作成、編集、削除はログイン必須にする　ログインしてなくても一覧詳細は見れる
+  before_action :authenticate_user!, except: [:index, :show]
+
+  def authorize_user!
+  redirect_to posts_path, alert: "権限がありません" unless @post.user == current_user
+end
 
   # GET /posts or /posts.json
   def index
@@ -23,7 +29,9 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     Rails.logger.debug "PARAMS: #{params.inspect}"
-    @post = Post.new(post_params)
+    # @post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)
+
 
     respond_to do |format|
       if @post.save

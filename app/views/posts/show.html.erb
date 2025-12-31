@@ -1,4 +1,4 @@
-<%= render "post", post: @post,truncate_body: false %>
+<%= render "posts/post", post: @post,truncate_body: false %>
 
 <hr>
 
@@ -8,3 +8,26 @@
   <%= link_to "Delete", @post,
         data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
 </p>
+
+<% if @comment&.errors&.any? %>
+  <div style="color: red">
+    <ul>
+      <% @comment.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<h3>コメント一覧</h3>
+<%= render @post.comments %>
+
+<h3>コメントを書く</h3>
+
+<%= form_with model: [@post, Comment.new] do |f| %>
+  <div>
+    <%= f.text_area :body %>
+  </div>
+  <%= f.submit "投稿" %>
+<% end %>

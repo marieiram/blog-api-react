@@ -2,11 +2,13 @@ class PostsController < ApplicationController
   # show, edit, update, destroyが呼ばれる前にset_postメソッドを実行する
   before_action :set_post, only: %i[ show edit update destroy ]
   # 新規作成、編集、削除はログイン必須にする　ログインしてなくても一覧詳細は見れる
-  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :authenticate_user!
+  # 投稿の所有者かどうか確認する
+  before_action :authorize_owner!, only: %i[edit update destroy]
 
   def authorize_user!
   redirect_to posts_path, alert: "権限がありません" unless @post.user == current_user
-end
+  end
 
   # GET /posts or /posts.json
   def index
@@ -46,9 +48,6 @@ end
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
-    Rails.logger.debug "================ UPDATE START ================"
-    Rails.logger.debug "PARAMS: #{params.inspect}"
-
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: "Post was successfully updated.", status: :see_other }
@@ -76,6 +75,13 @@ end
     Rails.logger.debug "SET_POST CALLED with id=#{params[:id]}"
     @post = Post.find(params[:id])
   end
+
+def authorize_owner!
+    unless @post.user == current_user
+      redirect_to posts_path, alert: "権限がありません"
+    end
+  end
+
 
   def post_params
     params.require(:post).permit(:title, :body)

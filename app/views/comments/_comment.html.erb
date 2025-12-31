@@ -1,15 +1,11 @@
 <p>
-    <%= comment.body %>
-    <p>
-  <strong>
-  <%= comment.user&.email || "匿名ユーザー" %>
-  </strong><br>
+  <strong><%= comment.user.email %></strong><br>
   <%= comment.body %>
-</p>
 
-      <% if comment.persisted? %>
-      <%= link_to "削除",
-            post_comment_path(@post, comment),
-            data: { turbo_method: :delete, turbo_confirm: "削除する？" } %>
-    <% end %>
-  </p>
+  <% if comment.user == current_user %>
+    <br>
+    <%= link_to "削除",
+      post_comment_path(comment.post, comment),
+      data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %>
+  <% end %>
+</p>

@@ -1,5 +1,12 @@
 <p>
     <%= comment.body %>
+    <p>
+  <strong>
+  <%= comment.user&.email || "匿名ユーザー" %>
+  </strong><br>
+  <%= comment.body %>
+</p>
+
       <% if comment.persisted? %>
       <%= link_to "削除",
             post_comment_path(@post, comment),

@@ -10,8 +10,18 @@
 <hr>
 
 <% @posts.each do |post| %>
-
   <%= render "post", post: post, truncate_body: true %>
-  <hr>
+ 
 
+<%= link_to "Show", post %>
+
+<% if user_signed_in? && post.user == current_user %>
+  | <%= link_to "Edit", edit_post_path(post) %> |
+  <%= link_to "Delete", post,
+        data: {
+          turbo_method: :delete,
+          turbo_confirm: "本当に削除しますか？"
+        } %>
+<% end %>
+ <hr>
 <% end %>

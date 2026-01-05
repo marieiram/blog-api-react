@@ -30,5 +30,6 @@
 
 | Method | Endpoint | Description |
 |------|----------|------------|
+| GET | /api/posts/:post_id/comments | コメント取得 |
 | POST | /api/posts/:post_id/comments | コメント作成 |
 | DELETE | /api/comments/:id | コメント削除 |

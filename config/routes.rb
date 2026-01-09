@@ -21,7 +21,10 @@ Rails.application.routes.draw do
     resources :comments, only: [ :index, :create ]
   end
   resources :comments, only: [ :destroy ]
-  resources :sessions, only: [ :create, :destroy ]
+  resources :sessions, 
+  controller:"api/sessions",
+  path:"login",
+  only: [ :create, :destroy ]
 end
 
 

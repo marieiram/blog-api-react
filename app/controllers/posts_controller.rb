@@ -6,6 +6,9 @@ class PostsController < ApplicationController
   # 投稿の所有者かどうか確認する
   before_action :authorize_owner!, only: %i[edit update destroy]
 
+  # token認証を行う
+  before_action :authorize_api_user, only: [ :create, :update, :destroy ]
+
   def authorize_user!
   redirect_to posts_path, alert: "権限がありません" unless @post.user == current_user
   end

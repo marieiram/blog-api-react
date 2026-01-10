@@ -1,5 +1,4 @@
 class Api::SessionsController < Api::BaseController
-
   # 「すでにログインしているユーザーだけ通す」ためのフィルターなので、ログイン前の人が叩くcreateアクションには不要
   # before_action :authenticate_user!, only: [ :create, :update, :destroy ]
 

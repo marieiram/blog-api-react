@@ -9,9 +9,9 @@ class User < ApplicationRecord
 
  # API用JSON形式でのデータ返却
  def api_json
-  {
-    id: id,
-    email: email
-     }
+   {
+     id: id,
+     email: email
+   }
  end
 end

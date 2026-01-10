@@ -4,9 +4,9 @@ class Api::PostsController < Api::BaseController
 # 　before_action :authenticate_user!, only: [ :create, :update, :destroy ]
 
 
-before_action :authenticate_api_user, only: [ :create, :update, :destroy ]
+  before_action :authenticate_api_user, only: [ :create, :update, :destroy ]
 
-before_action :set_post, only: [ :show, :update, :destroy ]
+  before_action :set_post, only: [ :show, :update, :destroy ]
 
  # GET /api/posts
  def index

@@ -16,15 +16,11 @@ Rails.application.routes.draw do
   # API（React用）
   # =========================
   namespace :api do
-    get "sessions/create"
   resources :posts, only: [ :index, :show, :create, :update, :destroy ] do
     resources :comments, only: [ :index, :create ]
   end
   resources :comments, only: [ :destroy ]
-  resources :sessions, 
-  controller:"api/sessions",
-  path:"login",
-  only: [ :create, :destroy ]
+  resources :sessions, only: [:create, :destroy]
 end
 
 

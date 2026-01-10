@@ -20,7 +20,8 @@ Rails.application.routes.draw do
     resources :comments, only: [ :index, :create ]
   end
   resources :comments, only: [ :destroy ]
-  end
+  resources :sessions, only: [ :create, :destroy ]
+end
 
 
   # =========================

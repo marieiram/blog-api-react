@@ -1,9 +1,12 @@
 # app/controllers/api/posts_controller.rb
-class Api::PostsController < ApplicationController
-  protect_from_forgery with: :null_session
+class Api::PostsController < Api::BaseController
+  #  authenticate_user!は、Devise専用メソッドで、ユーザーが認証されているかどうかを確認します
+  # 　before_action :authenticate_user!, only: [ :create, :update, :destroy ]
 
-# 　before_action :authenticate_user!, only: [ :create, :update, :destroy ]
-before_action :set_post, only: [ :show, :update, :destroy ]
+
+  before_action :authenticate_api_user, only: [ :create, :update, :destroy ]
+
+  before_action :set_post, only: [ :show, :update, :destroy ]
 
  # GET /api/posts
  def index
@@ -22,7 +25,8 @@ before_action :set_post, only: [ :show, :update, :destroy ]
   # POST /api/posts
   def create
    post = Post.new(post_params)
-   post.user = current_user
+    # post.user = current_user
+    post.user = User.first
 
     if post.save
       render json: post.api_json, status: :created

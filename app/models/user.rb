@@ -4,4 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+
+
+ # API用JSON形式でのデータ返却
+ def api_json
+   {
+     id: id,
+     email: email
+   }
+ end
 end

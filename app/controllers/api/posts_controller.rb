@@ -1,7 +1,7 @@
 # app/controllers/api/posts_controller.rb
 class Api::PostsController < Api::BaseController
-#  authenticate_user!は、Devise専用メソッドで、ユーザーが認証されているかどうかを確認します
-# 　before_action :authenticate_user!, only: [ :create, :update, :destroy ]
+  #  authenticate_user!は、Devise専用メソッドで、ユーザーが認証されているかどうかを確認します
+  # 　before_action :authenticate_user!, only: [ :create, :update, :destroy ]
 
 
   before_action :authenticate_api_user, only: [ :create, :update, :destroy ]

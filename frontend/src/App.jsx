@@ -2,19 +2,20 @@
 import { useState ,useEffect} from "react";
 import LoginForm from "./components/LoginForm";
 import PostList from"./components/PostList";
+import PostForm from "./components/PostForm";
 
 function App() {
-//状態の定義
-  const [message, setMessage] = useState("");
+
   //tokenがあるかどうか（ログイン状態を知るため）
   const [token,setToken] = useState(localStorage.getItem("token"));
   //投稿一覧用
   const [posts, setPosts] = useState([])
 
+  //新規投稿フォームを表示するかどうか
+  const [showPostForm, setShowPostForm] = useState(false);
+
   //投稿取得関数
-  const fetchPosts = async () => {
-    const token = localStorage.getItem("token");
-    
+  const fetchPosts = async () => { 
     const res = await fetch("http://localhost:3000/api/posts",{
       headers:{
         "Authorization": `Bearer ${token}`,
@@ -38,6 +39,10 @@ function App() {
     setPosts([]);
   };
 
+  //新規投稿フォーム表示
+  const handleShowPostForm = () => {
+    setShowPostForm(true);
+  };
   
   return (
     <div style={{ padding: "40px" }}>
@@ -50,17 +55,27 @@ function App() {
     
    //ログイン後の画面
     <>
-     <PostList posts={posts} /><button onClick={handleLogout}>ログアウト</button></>
-   
+    {showPostForm ? (
+      <>
+      <PostForm onCreated={() => {
+        fetchPosts();
+      setShowPostForm(false);
+    }} />
+      <button onClick={() => setShowPostForm(false)}>一覧に戻る</button>
+      </>
+    ) : (
+      <>
+       <button onClick={handleShowPostForm}>新規投稿</button>
+       <PostList posts={posts} />
+       <button onClick={handleLogout}>ログアウト</button>
+      </>
+    )}
+     </>
   )}  
-      
-     
+    
  {/* message が空 → 表示しない・message がある → 表示 */}
-      {message && <p>{message}</p>}
     </div>
-
   );
 }
-
 //他ファイル（main.jsx）から <App /> として使える
 export default App;

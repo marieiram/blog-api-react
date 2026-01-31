@@ -9,7 +9,7 @@ const COMMON_HEADERS = {
 
 //railsにAPIリクエストを送信
 const request = async (hikisu) => {
-
+//tokenを取得
 const token = hikisu.token;
     //headersを共通ヘッダーとマージ
    const headers = {

@@ -3,17 +3,17 @@
 //client.jsをインポート
 import request from './client.js';
 
-//client.jsに渡す関数を操作ごとに定義
+//client.jsにリクエストする関数を操作ごとに定義
 //一覧取得
 export const getPosts = async (token) => {
-    //clients.jsから結果を受け取る
+    // client.js の request を呼び出し、
+    // API通信の完了を待って結果をそのまま返す
     return await request({
         endpoint: 'posts',
         method: 'GET',
         token: token,
     });
 };
-
 
 //新規作成
 export const createPost = async(token,postDate) =>{
@@ -29,7 +29,3 @@ export const createPost = async(token,postDate) =>{
 //詳細取得
 //更新
 //削除
-
-
-
-//componentへ結果を渡す

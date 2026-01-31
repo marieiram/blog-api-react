@@ -22,6 +22,7 @@ const token = hikisu.token;
     const res = await fetch(`${API_BASE_URL}/${hikisu.endpoint}`, {
         method: hikisu.method, //POST, PUT, DELETEなど
         headers: headers,
+        cache: 'no-store', //常に最新データを取得するためキャッシュ無効化
        //hikisu.body があるときだけ { body: ... } を展開
        ...(hikisu.body && {body: JSON.stringify(hikisu.body)}),
     });

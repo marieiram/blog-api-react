@@ -1,6 +1,6 @@
-class Api::CommentsController < ApplicationController
-    protect_from_forgery with: :null_session
-
+class Api::CommentsController < Api::BaseController
+    before_action :authenticate_api_user, only: [ :create, :destroy ]
+    
 # GET /api/posts/:post_id/comments
 def index
   post = Post.find(params[:post_id])
@@ -12,8 +12,8 @@ end
 def create
   post = Post.find(params[:post_id])
   comment = post.comments.build(comment_params)
-  comment.user = User.first
-  # 仮に最初のユーザーを設定。認証実装後にcurrent_userに変更すること。
+  comment.user = current_user
+
 
   if comment.save
     render json: comment.api_json, status: :created

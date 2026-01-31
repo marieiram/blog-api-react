@@ -3,6 +3,7 @@ import { useState ,useEffect} from "react";
 import LoginForm from "./components/LoginForm";
 import PostList from"./components/PostList";
 import PostForm from "./components/PostForm";
+import { getPosts } from "./api/posts";
 
 function App() {
 
@@ -15,21 +16,17 @@ function App() {
   const [showPostForm, setShowPostForm] = useState(false);
 
   //投稿取得関数
-  const fetchPosts = async () => { 
-    const res = await fetch("http://localhost:3000/api/posts",{
-      headers:{
-        "Authorization": `Bearer ${token}`,
-      }
-    })
-  const data = await res.json();
-  setPosts(data);
-}
+const fetchPosts = async () => {
+  if (!token) return;
+  const data = await getPosts (token);
+  setPosts (data);
+};
 
   //tokenが変化したら実行 ログイン後に投稿取得
   useEffect(()=> {
-    if (token){
-      fetchPosts();
-    }
+    console.log("posts:", posts);
+    console.log('posts state:', posts);
+    fetchPosts();
   },[token]);
 
    // ログアウト

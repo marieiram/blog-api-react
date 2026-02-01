@@ -16,13 +16,15 @@ export const getPosts = async (token) => {
 };
 
 //新規作成
-export const createPost = async(token,postDate) =>{
+export const createPost = async(token,postData) =>{
     //clients.jsから結果を受け取る
     return await request({
         endpoint: 'posts',
         method: 'POST',
         token: token,
-        body: postDate,
+        body: {
+            post:postData,
+        },
     });
 }
 

@@ -4,6 +4,7 @@ import LoginForm from "./components/LoginForm";
 import PostList from"./components/PostList";
 import PostForm from "./components/PostForm";
 import { getPosts } from "./api/posts";
+import { createPost } from "./api/posts";
 
 function App() {
 
@@ -14,6 +15,9 @@ function App() {
 
   //新規投稿フォームを表示するかどうか
   const [showPostForm, setShowPostForm] = useState(false);
+
+  //formメッセージ表示用
+    const [formMessage, setFormMessage] = useState("");
 
   //投稿取得関数
 const fetchPosts = async () => {
@@ -29,6 +33,19 @@ const fetchPosts = async () => {
     fetchPosts();
   },[token]);
 
+  //投稿を新規作成するための関数
+  const handleCreatePost = async (postData) => {
+    try{
+    const res = await createPost(token, postData);
+    //ここまできたら成功してるということ
+      setFormMessage("投稿成功！");
+      fetchPosts();
+      setShowPostForm(false);
+    } catch (error) {
+      setFormMessage("投稿失敗");
+    } 
+  };
+
    // ログアウト
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -39,6 +56,7 @@ const fetchPosts = async () => {
   //新規投稿フォーム表示
   const handleShowPostForm = () => {
     setShowPostForm(true);
+    setFormMessage("");
   };
   
   return (
@@ -54,10 +72,9 @@ const fetchPosts = async () => {
     <>
     {showPostForm ? (
       <>
-      <PostForm onCreated={() => {
-        fetchPosts();
-      setShowPostForm(false);
-    }} />
+      <PostForm onSubmit={handleCreatePost}
+      message={formMessage} />
+
       <button onClick={() => setShowPostForm(false)}>一覧に戻る</button>
       </>
     ) : (

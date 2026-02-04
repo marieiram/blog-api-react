@@ -1,32 +1,15 @@
 import { useState } from "react";
 
-function PostForm({ onCreated }) {
+function PostForm({ onSubmit, message }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [message, setMessage] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
-    const res = await fetch("http://localhost:3000/api/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-      body: JSON.stringify({ title, body}),
-    });
 
 
-    if (res.ok) {  
-    setTitle("");
-    setBody("");
-    setMessage("投稿成功！");
-    onCreated();
-    } else {
-      setMessage("投稿失敗");
-    }
-  };
+  //「投稿」ボタンをクリックしたときにPostデータを渡す
+const handleSubmit = (e) => {
+  e.preventDefault();
+  onSubmit({title, body});
+  }
 
   return (
     <form onSubmit={handleSubmit}>

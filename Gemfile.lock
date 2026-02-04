@@ -87,7 +87,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.20.1)
       msgpack (~> 1.2)
-    brakeman (7.1.2)
+    brakeman (8.0.2)
       racc
     builder (3.3.0)
     bundler-audit (0.9.3)
@@ -238,6 +238,9 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.2.4)
+    rack-cors (3.0.0)
+      logger
+      rack (>= 3.0.14)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -421,6 +424,7 @@ DEPENDENCIES
   kamal
   propshaft
   puma (>= 5.0)
+  rack-cors
   rails (~> 8.1.1)
   rubocop-rails-omakase
   selenium-webdriver

@@ -1,6 +1,6 @@
 class Api::CommentsController < Api::BaseController
     before_action :authenticate_api_user, only: [ :create, :destroy ]
-    
+
 # GET /api/posts/:post_id/comments
 def index
   post = Post.find(params[:post_id])

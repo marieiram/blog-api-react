@@ -5,11 +5,13 @@ import PostList from"./components/PostList";
 import PostForm from "./components/PostForm";
 import { getPosts } from "./api/posts";
 import { createPost } from "./api/posts";
+import { login } from "./api/sessions";
 
 function App() {
 
   //tokenがあるかどうか（ログイン状態を知るため）
   const [token,setToken] = useState(localStorage.getItem("token"));
+
   //投稿一覧用
   const [posts, setPosts] = useState([])
 
@@ -17,7 +19,7 @@ function App() {
   const [showPostForm, setShowPostForm] = useState(false);
 
   //formメッセージ表示用
-    const [formMessage, setFormMessage] = useState("");
+  const [formMessage, setFormMessage] = useState("");
 
   //投稿取得関数
 const fetchPosts = async () => {
@@ -46,6 +48,18 @@ const fetchPosts = async () => {
     } 
   };
 
+  //ログインするための関数
+  const handleLogin = async (userData) => {
+   try {
+      const res = await login(userData);
+      //ログイン成功したらtokenを保存
+      localStorage.setItem("token", res.token);
+      setToken(res.token);
+    } catch (error) {
+      console.error("ログイン失敗", error);
+    }
+  };
+
    // ログアウト
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -64,7 +78,7 @@ const fetchPosts = async () => {
 
 {!token ? (
    //ログイン前の画面
-<LoginForm setToken={setToken}/>
+<LoginForm onSubmit={handleLogin}/>
      
     ) : (
     

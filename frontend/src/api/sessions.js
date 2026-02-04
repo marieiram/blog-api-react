@@ -8,14 +8,14 @@ export const login = async (UserData) => {
     // client.js の request を呼び出し、
     // API通信の完了を待って結果をそのまま返す
     return await request({
-        endpoint: 'login',
+        endpoint: 'sessions',
         method: 'POST',
         // token: token,　//ログイン前なのでtokenは不要
         body: UserData,
     });
 }
 
-//ログイン（未ログインからログイン済みにする操作）
+//ログアウト（未ログインからログイン済みにする操作）
 export const logout = async (token) => {
     return await request({
         endpoint: 'logout',

@@ -9,7 +9,7 @@
 
 | Method | Endpoint | Description |
 |------|----------|------------|
-| POST | /api/login | ログイン |
+| POST | /api/sessions | ログイン |
 | DELETE | /api/logout | ログアウト |
 | GET | /api/me | ログイン中ユーザー取得 |
 

@@ -7,14 +7,20 @@ const COMMON_HEADERS = {
     'Content-Type': 'application/json',
 };
 
+//authTokenの初期値
+let authToken = null;
+//authTokenの設定
+export const setAuthToken = (token) =>{
+    authToken = token;
+}
+
 //railsにAPIリクエストを送信
 const request = async (hikisu) => {
-//tokenを取得
-const token = hikisu.token;
+
     //headersを共通ヘッダーとマージ
    const headers = {
         ...COMMON_HEADERS,
-        ...(token && { 'Authorization': `Bearer ${token}` }),
+        ...(authToken && { 'Authorization': `Bearer ${authToken}` }),
         ...hikisu.headers,
     };
 

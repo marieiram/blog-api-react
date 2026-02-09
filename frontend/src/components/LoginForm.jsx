@@ -1,14 +1,21 @@
 import { useState } from "react";
+import { useAuth } from "../contexts/useAuth";
 
-function LoginForm({ onSubmit,message }) {
+function LoginForm({ message }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const [message, setMessage] = useState("");
 
+  const { Login } = useAuth();
   const handleSubmit = async (e) => {
     //通常<form>は送信すると、ページがリロードされるが、Reactではそれを止める
     e.preventDefault();
-    onSubmit({ email, password});
+    // onSubmit({ email, password});
+    try {
+      await Login({ email, password });
+    } catch {
+      console.error("ログイン失敗");
+    }
 
     //railsのログインAPI
     // const res = await fetch("http://localhost:3000/api/sessions", {
@@ -51,9 +58,9 @@ function LoginForm({ onSubmit,message }) {
       />
 
       <button>Login</button>
-           
-{/* message が空 → 表示しない・message がある → 表示 * */}
-         {message && <p>{message}</p>}
+
+      {/* message が空 → 表示しない・message がある → 表示 * */}
+      {message && <p>{message}</p>}
     </form>
   );
 }

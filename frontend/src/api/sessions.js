@@ -10,17 +10,15 @@ export const login = async (UserData) => {
     return await request({
         endpoint: 'sessions',
         method: 'POST',
-        // token: token,　//ログイン前なのでtokenは不要
         body: UserData,
     });
 }
 
-//ログアウト（未ログインからログイン済みにする操作）
-export const logout = async (token) => {
+//ログアウト
+export const logout = async () => {
     return await request({
         endpoint: 'logout',
         method: 'DELETE',
-        token: token,
     });
 }
 

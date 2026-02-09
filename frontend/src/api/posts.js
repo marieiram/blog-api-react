@@ -5,23 +5,23 @@ import request from './client.js';
 
 //client.jsにリクエストする関数を操作ごとに定義
 //一覧取得
-export const getPosts = async (token) => {
+export const getPosts = async () => {
     // client.js の request を呼び出し、
     // API通信の完了を待って結果をそのまま返す
     return await request({
         endpoint: 'posts',
         method: 'GET',
-        token: token,
+        // token: token,
     });
 };
 
 //新規作成
-export const createPost = async(token,postData) =>{
+export const createPost = async(postData) =>{
     //clients.jsから結果を受け取る
     return await request({
         endpoint: 'posts',
         method: 'POST',
-        token: token,
+        // token: token,
         body: {
             post:postData,
         },

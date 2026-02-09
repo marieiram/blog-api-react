@@ -9,7 +9,7 @@ import { useAuth } from "./contexts/useAuth";
 
 function App() {
 
-  //
+  // useAuthカスタムフックから認証関連の機能と状態を取得
   const { Login, Logout, isAutheticated } = useAuth();
 
   //投稿一覧用

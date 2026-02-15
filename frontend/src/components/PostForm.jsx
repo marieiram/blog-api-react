@@ -4,11 +4,10 @@ function PostForm({ onSubmit, message }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-
   //「投稿」ボタンをクリックしたときにPostデータを渡す
-const handleSubmit = (e) => {
-  e.preventDefault();
-  onSubmit({title, body});
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit({ title, body });
   }
 
   return (

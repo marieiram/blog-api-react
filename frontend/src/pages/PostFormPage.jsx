@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { createPost } from "../api/posts";
 
 function PostFormPage() {
-    const { isAutheticated } = useAuth();
+    const { isAuthenticated } = useAuth();
 
     //URL切り替え用
     const navigate = useNavigate();
@@ -35,11 +35,11 @@ function PostFormPage() {
 
     //ログインしてない時はログインページへ遷移
     useEffect(() => {
-        if (!isAutheticated) {
+        if (!isAuthenticated) {
             navigate("/login")
             return;
         }
-    }, [isAutheticated, navigate]);
+    }, [isAuthenticated, navigate]);
 
     return (
         <>

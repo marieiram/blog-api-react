@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
     const value = {
         Login,
         Logout,
-        isAutheticated: !!token, //tokenがあればtrue、なければfalse
+        isAuthenticated: !!token, //tokenがあればtrue、なければfalse
     };
     return (
         <AuthContext.Provider value={value}>

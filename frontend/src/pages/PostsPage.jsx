@@ -7,7 +7,7 @@ import { getPosts } from "../api/posts";
 function PostsPage() {
 
     //ログイン状態を管理 
-    const { isAutheticated, Logout } = useAuth();
+    const { isAuthenticated, Logout } = useAuth();
     //投稿一覧用
     const [posts, setPosts] = useState([])
     //URL切り替え用
@@ -32,12 +32,12 @@ function PostsPage() {
     //URLのpostsにアクセスしたら、ログイン状態の時には投稿を再取得する
     //未ログインの時には、ログイン画面へ遷移する
     useEffect(() => {
-        if (!isAutheticated) {
+        if (!isAuthenticated) {
             navigate("/login")
             return;
         }
         fetchPosts();
-    }, [isAutheticated, navigate]);
+    }, [isAuthenticated, navigate]);
 
     return (
         <>

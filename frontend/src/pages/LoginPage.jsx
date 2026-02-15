@@ -5,17 +5,17 @@ import { useAuth } from "../contexts/useAuth";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
-    const { isAutheticated } = useAuth();
+    const { isAuthenticated } = useAuth();
     const navigate = useNavigate();
 
 
 
     //ログイン状態が変わったら（＝ログインに成功したら）URLを変更する
     useEffect(() => {
-        if (isAutheticated) {
+        if (isAuthenticated) {
             navigate("/posts");
         }
-    }, [isAutheticated, navigate])
+    }, [isAuthenticated, navigate])
 
     return (
         <LoginForm />

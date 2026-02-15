@@ -11,6 +11,9 @@ function PostFormPage() {
     //URL切り替え用
     const navigate = useNavigate();
 
+    //formメッセージ表示用
+    const [formMessage, setFormMessage] = useState("");
+
     //新規投稿関数
     const handlecreatePost = async (postData) => {
         try {
@@ -25,12 +28,10 @@ function PostFormPage() {
     };
 
 
-
     //一覧に戻るボタンを押したら投稿一覧ページに遷移
     const navigatePosts = () => {
         navigate("/posts");
     }
-
 
     //ログインしてない時はログインページへ遷移
     useEffect(() => {
@@ -42,7 +43,7 @@ function PostFormPage() {
 
     return (
         <>
-            <PostForm onSubmit={handlecreatePost} />
+            <PostForm onSubmit={handlecreatePost} message={formMessage} />
             <button onClick={navigatePosts}>一覧に戻る</button>
         </>
     )

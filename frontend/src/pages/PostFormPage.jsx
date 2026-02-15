@@ -19,7 +19,7 @@ function PostFormPage() {
         try {
             await createPost(postData);
             //ここまできたら成功してるということ
-            setFormMessage("投稿成功！");
+            setFormMessage("投稿成功");
             //投稿が完了したら一覧ページに遷移
             navigate("/posts");
         } catch {

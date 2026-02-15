@@ -8,7 +8,6 @@ import { login as loginApi } from "../api/sessions";
 const AuthContext = createContext(null);
 export { AuthContext };
 
-//
 export const AuthProvider = ({ children }) => {
     //tokenの状態を管理
     const [token, setToken] = useState(localStorage.getItem("token"));
@@ -30,7 +29,6 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error("ログイン失敗", error);
             throw error;
-
         }
     };
 

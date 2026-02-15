@@ -8,6 +8,8 @@ function LoginPage() {
     const { isAutheticated } = useAuth();
     const navigate = useNavigate();
 
+
+
     //ログイン状態が変わったら（＝ログインに成功したら）URLを変更する
     useEffect(() => {
         if (isAutheticated) {

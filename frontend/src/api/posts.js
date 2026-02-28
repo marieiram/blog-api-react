@@ -16,18 +16,29 @@ export const getPosts = async () => {
 };
 
 //新規作成
-export const createPost = async(postData) =>{
+export const createPost = async (postData) => {
     //clients.jsから結果を受け取る
     return await request({
         endpoint: 'posts',
         method: 'POST',
         // token: token,
         body: {
-            post:postData,
+            post: postData,
         },
     });
 }
 
 //詳細取得
+export const getPostDetail = async (id) => {
+    // client.js の request を呼び出し、
+    // API通信の完了を待って結果をそのまま返す
+    return await request({
+        endpoint: `posts/${id}`,
+        method: 'GET',
+        // token: token,
+    });
+};
+
+
 //更新
 //削除

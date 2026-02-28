@@ -18,6 +18,11 @@ function PostsPage() {
         navigate("/posts/new");
     }
 
+    //投稿がクリックされたら、詳細画面へ遷移
+    const navigatePostDetail = async (id) => {
+        navigate(`/posts/${id}`)
+    }
+
     //ログアウトボタンを押したらログインページに遷移
     const navigateLogin = () => {
         Logout();
@@ -43,7 +48,7 @@ function PostsPage() {
         <>
             <button onClick={navigateNewPost}>新規投稿</button>
             <button onClick={navigateLogin}>ログアウト</button>
-            <PostList posts={posts} />
+            <PostList posts={posts} onClickPost={navigatePostDetail} />
 
         </>
     )

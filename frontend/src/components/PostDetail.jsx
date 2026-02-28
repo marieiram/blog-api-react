@@ -1,15 +1,17 @@
-function PostDetail({ post }) {
+function PostDetail({ post, message }) {
 
+    if (message) {
+        return <p>{message}</p>
+    }
+    if (!post) {
+        console.log("loding");
+        return <p>読み込み中</p>
+    }
     return (
         <div>
-            <h2>Post</h2>
+            <h2>{post.title}</h2>
             <ul>
-
-                <li key={post.id}>
-                    <p>{post.title}</p>
-                    <p>{post.body}</p>
-                </li>
-
+                <p>{post.body}</p>
             </ul>
         </div>
     );

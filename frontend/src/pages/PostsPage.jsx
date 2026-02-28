@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect } from "react";
 import PostList from "../components/PostList";
 import { useAuth } from "../contexts/useAuth";

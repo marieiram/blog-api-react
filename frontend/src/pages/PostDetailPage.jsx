@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import PostDetail from "../components/PostDetail";
 import { useAuth } from "../contexts/useAuth";
@@ -11,7 +12,10 @@ function PostDetailPage() {
     const { isAuthenticated, Logout } = useAuth();
 
     //投稿詳細の状態を管理
-    const [post, setPost] = useState([])
+    const [post, setPost] = useState(null);
+
+    //エラーメッセージの状態管理
+    const [ErrorMessage, SetErrorMessage] = useState("");
 
     //URLのパラメータを取得
     const { id } = useParams();
@@ -22,8 +26,13 @@ function PostDetailPage() {
 
     //詳細取得関数
     const fetchPostDetail = async () => {
-        const date = await getPostDetail(id);
-        setPost(date);
+        try {
+            const data = await getPostDetail(id);
+            setPost(data);
+        } catch {
+            setPost(null);
+            SetErrorMessage("投稿が見つかりませんでした");
+        }
     }
 
     //idが変わるたびに、詳細取得関数を実行する
@@ -33,14 +42,20 @@ function PostDetailPage() {
             return;
         }
         fetchPostDetail();
-    }, [id]
+    }, [id, isAuthenticated]);
 
-    )
+
+    //一覧に戻るボタンを押したら投稿一覧ページに遷移
+    const navigatePosts = () => {
+        navigate("/posts");
+    }
 
 
     return (
         <div>
-            <PostDetail post={post} />
+            <PostDetail post={post} message={ErrorMessage} />
+            <button onClick={navigatePosts}>一覧に戻る</button>
+
         </div>
     )
 

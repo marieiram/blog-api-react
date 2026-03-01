@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect } from "react";
 import PostList from "../components/PostList";
 import { useAuth } from "../contexts/useAuth";
@@ -16,6 +17,11 @@ function PostsPage() {
     //新規投稿ボタンを押したら投稿フォームページに遷移
     const navigateNewPost = () => {
         navigate("/posts/new");
+    }
+
+    //投稿がクリックされたら、詳細画面へ遷移
+    const navigatePostDetail = (id) => {
+        navigate(`/posts/${id}`)
     }
 
     //ログアウトボタンを押したらログインページに遷移
@@ -43,7 +49,7 @@ function PostsPage() {
         <>
             <button onClick={navigateNewPost}>新規投稿</button>
             <button onClick={navigateLogin}>ログアウト</button>
-            <PostList posts={posts} />
+            <PostList posts={posts} onClickPost={navigatePostDetail} />
 
         </>
     )

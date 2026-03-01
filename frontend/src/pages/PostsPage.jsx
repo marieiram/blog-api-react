@@ -20,7 +20,7 @@ function PostsPage() {
     }
 
     //投稿がクリックされたら、詳細画面へ遷移
-    const navigatePostDetail = async (id) => {
+    const navigatePostDetail = (id) => {
         navigate(`/posts/${id}`)
     }
 

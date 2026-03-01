@@ -1,6 +1,7 @@
 function PostDetail({ post, message }) {
 
     if (message) {
+        //エラーの場合、メッセージを表示
         return <p>{message}</p>
     }
     if (!post) {
@@ -10,9 +11,7 @@ function PostDetail({ post, message }) {
     return (
         <div>
             <h2>{post.title}</h2>
-            <ul>
-                <p>{post.body}</p>
-            </ul>
+            <p>{post.body}</p>
         </div>
     );
 }

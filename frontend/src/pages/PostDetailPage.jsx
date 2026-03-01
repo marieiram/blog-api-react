@@ -19,7 +19,6 @@ function PostDetailPage() {
 
     //URLのパラメータを取得
     const { id } = useParams();
-    console.log(id);
 
     //URL切り替え用
     const navigate = useNavigate();

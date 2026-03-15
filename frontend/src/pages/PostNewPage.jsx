@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { createPost } from "../api/posts";
 
-function PostFormPage() {
+function PostNewPage() {
     const { isAuthenticated } = useAuth();
 
     //URL切り替え用
@@ -43,7 +43,7 @@ function PostFormPage() {
 
     return (
         <>
-            <PostForm onSubmit={handlecreatePost} message={formMessage} />
+            <PostForm onSubmit={handlecreatePost} message={formMessage} mode="new" />
             <button onClick={navigatePosts}>一覧に戻る</button>
         </>
     )
@@ -51,4 +51,4 @@ function PostFormPage() {
 
 }
 
-export default PostFormPage;
+export default PostNewPage;

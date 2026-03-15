@@ -49,11 +49,17 @@ function PostDetailPage() {
         navigate("/posts");
     }
 
+    //編集ボタンを押したら投稿編集ページに遷移
+    const navigateEditPost = () => {
+        navigate(`/posts/${id}/edit`);
+    }
+
 
     return (
         <div>
             <PostDetail post={post} message={ErrorMessage} />
             <button onClick={navigatePosts}>一覧に戻る</button>
+            <button onClick={navigateEditPost}>編集</button>
 
         </div>
     )

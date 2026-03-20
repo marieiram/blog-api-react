@@ -43,7 +43,7 @@ function PostNewPage() {
 
     return (
         <>
-            <PostForm onSubmit={handlecreatePost} message={formMessage} mode="new" />
+            <PostForm mode="new" onSubmit={handlecreatePost} message={formMessage} />
             <button onClick={navigatePosts}>一覧に戻る</button>
         </>
     )

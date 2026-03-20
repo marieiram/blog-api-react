@@ -1,8 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function PostForm({ onSubmit, message, mode }) {
+function PostForm({ onSubmit, message, mode, post }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+
+
+  //postが渡ってきたときは初期値をセットする
+  useEffect(() => {
+    if (post) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTitle(post.title);
+      setBody(post.body);
+    }
+  }, [post]);
 
   //「投稿」ボタンをクリックしたときにPostデータを渡す
   const handleSubmit = (e) => {

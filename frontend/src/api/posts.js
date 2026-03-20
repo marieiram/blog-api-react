@@ -41,4 +41,15 @@ export const getPostDetail = async (id) => {
 
 
 //更新
+export const updatePost = async (id, postData) => {
+    return await request({
+        endpoint: `posts/${id}`,
+        method: 'PATCH',
+        // token: token,
+        body: {
+            post: postData,
+        },
+    });
+}
+
 //削除

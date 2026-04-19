@@ -61,7 +61,6 @@ function PostDetailPage() {
     //削除ボタンを押したら、削除確認ダイアログを表示
     const handleDeleteConfirm = () => {
         setIsOpen(true);
-
     }
 
     //確認ダイアログの削除ボタンを押したら、削除関数を実行

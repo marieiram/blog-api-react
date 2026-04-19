@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import PostDetail from "../components/PostDetail";
 import { useAuth } from "../contexts/useAuth";
 import { useParams, useNavigate } from "react-router-dom";
-import { getPostDetail } from "../api/posts";
+import { getPostDetail, deletePost } from "../api/posts";
 import ConfirmDialog from "../components/ConfirmDialog"
 
 
@@ -64,9 +64,19 @@ function PostDetailPage() {
     }
 
     //確認ダイアログの削除ボタンを押したら、削除関数を実行
-    const handleDeletePost = () => {
-        //削除APIを呼び出し
-        console.log("削除ボタンを押したよ")
+    async function handleDeletePost() {
+        try {
+            //削除APIを呼び出し
+            console.log("削除ボタンを押したよ")
+            await deletePost(id);
+            console.log("削除が完了したよ")
+            navigate("/posts");
+            //FBメッセージ
+        }
+        catch {
+            setIsOpen(false);
+            SetErrorMessage("error")
+        }
     }
 
 

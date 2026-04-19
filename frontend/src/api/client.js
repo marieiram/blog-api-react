@@ -10,7 +10,7 @@ const COMMON_HEADERS = {
 //authTokenの初期値
 let authToken = null;
 //authTokenの設定
-export const setAuthToken = (token) =>{
+export const setAuthToken = (token) => {
     authToken = token;
 }
 
@@ -18,7 +18,7 @@ export const setAuthToken = (token) =>{
 const request = async (hikisu) => {
 
     //headersを共通ヘッダーとマージ
-   const headers = {
+    const headers = {
         ...COMMON_HEADERS,
         ...(authToken && { 'Authorization': `Bearer ${authToken}` }),
         ...hikisu.headers,
@@ -29,25 +29,28 @@ const request = async (hikisu) => {
         method: hikisu.method, //POST, PUT, DELETEなど
         headers: headers,
         cache: 'no-store', //常に最新データを取得するためキャッシュ無効化
-       //hikisu.body があるときだけ { body: ... } を展開
-       ...(hikisu.body && {body: JSON.stringify(hikisu.body)}),
+        //hikisu.body があるときだけ { body: ... } を展開
+        ...(hikisu.body && { body: JSON.stringify(hikisu.body) }),
     });
 
-//レスポンス処理
-//成功時 データをreturn
-if (res.ok) {
-    const data = await res.json();
-    return data;
-}
+    //レスポンス処理
+    //成功時 データをreturn
+    if (res.ok) {
+        //deleteの場合は空なのでそのまま返す
+        if (res.status === 204) return;
 
-//失敗時 エラーをthrow
-else {
-    const errorData = await res.json();
-    const err = new Error(errorData.message || 'API request failed');
-    err.status = res.status;
-    err.details = errorData;
-    throw err;
-}
+        const data = await res.json();
+        return data;
+    }
+
+    //失敗時 エラーをthrow
+    else {
+        const errorData = await res.json();
+        const err = new Error(errorData.message || 'API request failed');
+        err.status = res.status;
+        err.details = errorData;
+        throw err;
+    }
 
 };
 

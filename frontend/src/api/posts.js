@@ -56,8 +56,6 @@ export const updatePost = async (id, postData) => {
 export const deletePost = async (id) => {
     return await request({
         endpoint: `posts/${id}`,
-        method: 'DELETE',
-        body: {
-        }
+        method: 'DELETE'
     })
 } 

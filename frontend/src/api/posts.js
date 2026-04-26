@@ -53,3 +53,9 @@ export const updatePost = async (id, postData) => {
 }
 
 //削除
+export const deletePost = async (id) => {
+    return await request({
+        endpoint: `posts/${id}`,
+        method: 'DELETE'
+    })
+} 

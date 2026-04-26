@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import PostDetail from "../components/PostDetail";
 import { useAuth } from "../contexts/useAuth";
 import { useParams, useNavigate } from "react-router-dom";
-import { getPostDetail } from "../api/posts";
+import { getPostDetail, deletePost } from "../api/posts";
+import ConfirmDialog from "../components/ConfirmDialog"
 
 
 function PostDetailPage() {
@@ -16,6 +17,9 @@ function PostDetailPage() {
 
     //エラーメッセージの状態管理
     const [ErrorMessage, SetErrorMessage] = useState("");
+
+    //削除ダイアログの開閉状態を管理
+    const [isOpen, setIsOpen] = useState(false);
 
     //URLのパラメータを取得
     const { id } = useParams();
@@ -54,12 +58,40 @@ function PostDetailPage() {
         navigate(`/posts/${id}/edit`);
     }
 
+    //削除ボタンを押したら、削除確認ダイアログを表示
+    const handleDeleteConfirm = () => {
+        setIsOpen(true);
+    }
+
+    //確認ダイアログの削除ボタンを押したら、削除関数を実行
+    async function handleDeletePost() {
+        try {
+            //削除APIを呼び出し
+            console.log("削除ボタンを押したよ")
+            await deletePost(id);
+            console.log("削除が完了したよ")
+            navigate("/posts");
+            //FBメッセージ
+        }
+        catch {
+            setIsOpen(false);
+            SetErrorMessage("error")
+        }
+    }
+
 
     return (
         <div>
             <PostDetail post={post} message={ErrorMessage} />
+            <ConfirmDialog isOpen={isOpen}
+                title="この投稿を削除しますか？"
+                description="本当に削除する？"
+                ActionLabel="削除"
+                onAction={handleDeletePost}
+                onCancel={() => setIsOpen(false)} />
             <button onClick={navigatePosts}>一覧に戻る</button>
             <button onClick={navigateEditPost}>編集</button>
+            <button onClick={handleDeleteConfirm}>削除</button>
 
         </div>
     )

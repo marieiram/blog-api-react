@@ -1,7 +1,6 @@
 # app/controllers/api/base_controller.rb
 module Api
   class BaseController < ActionController::API
-
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
     private
@@ -24,6 +23,5 @@ module Api
     def render_404
       render json: { error: "Not Found" }, status: :not_found
     end
-
   end
 end

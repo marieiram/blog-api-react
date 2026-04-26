@@ -53,7 +53,7 @@ class Api::PostsController < Api::BaseController
 
   def set_post
     id = params[:id]
-    #数字以外は弾く
+    # 数字以外は弾く
     raise ActiveRecord::RecordNotFound unless id.match?(/\A\d+\z/)
     @post = Post.includes(:user).find(id)
   end

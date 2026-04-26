@@ -1,6 +1,8 @@
 # app/controllers/api/base_controller.rb
 module Api
   class BaseController < ActionController::API
+    rescue_from ActiveRecord::RecordNotFound, with: :render_404
+
     private
 
     def authenticate_api_user
@@ -16,6 +18,10 @@ module Api
 
     def render_unauthorized
       render json: { message: "認証が必要です" }, status: :unauthorized
+    end
+
+    def render_404
+      render json: { error: "Not Found" }, status: :not_found
     end
   end
 end

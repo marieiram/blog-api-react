@@ -18,8 +18,7 @@ class Api::PostsController < Api::BaseController
 
   # GET /api/posts/:id
   def show
-    post = Post.includes(:user).find(params[:id])
-    render json: post.api_json
+    render json: @post.api_json
   end
 
   # POST /api/posts
@@ -53,7 +52,10 @@ class Api::PostsController < Api::BaseController
   private
 
   def set_post
-    @post = Post.includes(:user).find(params[:id])
+    id = params[:id]
+    # 数字以外は弾く
+    raise ActiveRecord::RecordNotFound unless id.match?(/\A\d+\z/)
+    @post = Post.includes(:user).find(id)
   end
 
   def post_params
